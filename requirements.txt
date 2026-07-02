@@ -1,0 +1,20 @@
+qdrant-client[fastembed]>=1.9.0
+sentence-transformers>=3.0.0
+openai>=1.30.0
+# ragas + langchain family pinned together: ragas has no upper bound on
+# langchain deps, so an unpinned install pulls langchain-community>=0.4 which
+# dropped langchain_community.chat_models.vertexai — a module ragas 0.2.x/0.4.x
+# still import unconditionally, crashing `import ragas`.
+ragas==0.2.15
+langchain-community==0.3.10
+langchain-core==0.3.29
+langchain==0.3.10
+langchain-openai==0.2.10
+datasets>=2.20.0
+streamlit>=1.35.0
+httpx>=0.27.0
+beautifulsoup4>=4.12.0
+python-dotenv>=1.0.0
+pytest>=8.0.0
+tiktoken>=0.7.0
+tqdm>=4.66.0
