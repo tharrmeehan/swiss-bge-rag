@@ -1,0 +1,50 @@
+[
+  {
+    "question": "Welches Grundrecht steht im Zentrum von BGE 148 I 1 im Zusammenhang mit einer fürsorgerischen Unterbringung?",
+    "ground_truth": "Das Recht auf Selbstbestimmung, das verfassungsrechtlich an die in Art. 10 BV garantierte persönliche Freiheit anknüpft. Im medizinischen Bereich drückt es sich durch das Recht aus, einer vom Arzt vorgeschlagenen Behandlung zuzustimmen oder sie abzulehnen."
+  },
+  {
+    "question": "Ist das Selbstbestimmungsrecht des Patienten gemäss BGE 148 I 1 absolut?",
+    "ground_truth": "Nein. Wenn das Rechtsverhältnis zwischen Patient und Arzt öffentlich-rechtlicher Natur ist, müssen zur Einschränkung die Grundsätze von Art. 36 BV beachtet werden."
+  },
+  {
+    "question": "Wie qualifiziert das Bundesgericht in BGE 148 I 1 eine Anordnung zur fürsorgerischen Unterbringung nach Art. 426 ZGB?",
+    "ground_truth": "Als hoheitlichen Akt des öffentlichen Rechts, der zu einem Freiheitsentzug im Sinne von Art. 5 Ziff. 1 EMRK führt."
+  },
+  {
+    "question": "Welchem Zustand muss die 'schwere Verwahrlosung' im Sinne von Art. 426 ZGB gemäss BGE 148 I 1 entsprechen?",
+    "ground_truth": "Einem Zustand, der mit der Menschenwürde unvereinbar ist und nur durch die Unterbringung in einer Einrichtung behoben werden kann; vorübergehende Beeinträchtigungen sind ausgeschlossen."
+  },
+  {
+    "question": "Steht eine bloss vorübergehende, somatisch verursachte Bewusstseinsstörung gemäss BGE 148 I 1 einer fürsorgerischen Unterbringung entgegen?",
+    "ground_truth": "Ja, eine Bewusstseinsstörung mit somatischer Ursache, die nur vorübergehend ist, steht einer so einschneidenden Massnahme entgegen."
+  },
+  {
+    "question": "Ist gemäss BGE 148 IV 1 eine direkte Umwandlung einer ambulanten Massnahme in eine Verwahrung möglich?",
+    "ground_truth": "Nein, eine direkte Umwandlung einer ambulanten Massnahme in eine Verwahrung ist nicht möglich (Bestätigung der Rechtsprechung)."
+  },
+  {
+    "question": "Wer ist gemäss BGE 148 IV 1 für die Aufhebung der stationären therapeutischen Massnahme infolge Aussichtslosigkeit zuständig?",
+    "ground_truth": "Die Vollzugsbehörde ist dafür zuständig, nicht das Gericht."
+  },
+  {
+    "question": "Worüber hat das Gericht gemäss BGE 148 IV 1 im Rahmen von Art. 59 Abs. 4 Satz 2 StGB lediglich zu befinden?",
+    "ground_truth": "Lediglich über die Verlängerung der stationären Massnahme."
+  },
+  {
+    "question": "Steht der Grundsatz der Formstrenge gemäss BGE 148 IV 1 einer Gesetzesauslegung oder richterlichen Lückenfüllung entgegen?",
+    "ground_truth": "Nein, der Grundsatz der Formstrenge steht einer Gesetzesauslegung und einer richterlichen Lückenfüllung nicht entgegen."
+  },
+  {
+    "question": "Bei welcher Instanz liegt gemäss BGE 148 IV 1 die Zuständigkeit für die Beurteilung der Verwahrung im Rechtsmittelverfahren?",
+    "ground_truth": "Ausschliesslich bei der Berufungsinstanz."
+  },
+  {
+    "question": "Wie hoch war die Bussgeldsumme, die das Bundesgericht in BGE 148 I 1 gegen den beschwerdeführenden Arzt verhängt hat?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten."
+  },
+  {
+    "question": "Welche Position vertrat das Bundesamt für Gesundheit als Beschwerdegegnerin in BGE 148 IV 1?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten."
+  }
+]
