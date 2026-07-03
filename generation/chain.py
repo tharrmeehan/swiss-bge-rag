@@ -4,7 +4,10 @@ from retrieval.retriever import SearchResult
 from dotenv import load_dotenv
 
 load_dotenv()
-client = OpenAI()
+client = OpenAI(
+    base_url=os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1"),
+    api_key=os.getenv("OPENAI_API_KEY", "ollama"),
+)
 
 SYSTEM_PROMPT = """Du bist ein juristischer Assistent, der Fragen zu Schweizer Bundesgerichtsentscheiden (BGE) beantwortet.
 
@@ -22,7 +25,7 @@ def format_sources(results: list[SearchResult]) -> str:
     return "\n\n".join(parts)
 
 
-def answer(query: str, results: list[SearchResult], model: str = "gpt-4o") -> str:
+def answer(query: str, results: list[SearchResult], model: str = os.getenv("LLM_MODEL", "gpt-4o")) -> str:
     sources_text = format_sources(results)
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},

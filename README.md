@@ -1,3 +1,13 @@
+---
+title: Swiss BGE RAG
+emoji: ⚖️
+colorFrom: red
+colorTo: gray
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # Swiss BGE RAG
 
 Retrieval-augmented Q&A over German/French/Italian-language Swiss Federal Supreme Court rulings (BGE). Hybrid BM25 + dense retrieval (multilingual-e5-large) fused via Qdrant's native RRF, cross-encoder re-ranking, GPT-4o generation with enforced citations, and RAGAS evaluation.
@@ -8,26 +18,28 @@ Not yet deployed — see [Deploy to Hugging Face Spaces](#deploy-to-hugging-face
 
 ## Evaluation
 
-A 12-question grounded test set (`evaluation/test_set.json`) covers the 2 BGE rulings indexed so far (BGE 148 I 1, BGE 148 IV 1): 10 answerable questions plus 2 designed to be unanswerable from the indexed corpus. Run it with:
+A 26-question grounded test set (`evaluation/test_set.json`) covers the 15 BGE rulings currently indexed: 24 answerable questions drawn from each ruling's Regeste (official headnote) plus 2 designed to be unanswerable from the indexed corpus, to check the model refuses to hallucinate. Run it with:
 
 ```bash
 python -m evaluation.evaluate
 ```
 
-RAGAS scoring (`faithfulness`, `answer_relevancy`, `context_precision`, `context_recall`) requires `OPENAI_API_KEY` — it has not been run in this environment, so no scores are published here yet. Paste your results below after running it:
+`generation/chain.py` and `evaluation/evaluate.py` both read `OPENAI_BASE_URL` / `OPENAI_API_KEY` / `LLM_MODEL`, so the whole pipeline — generation and the RAGAS judge — can point at a local [Ollama](https://ollama.com) instance instead of paying for OpenAI (see `.env.example`).
 
 ```markdown
-## Evaluation (RAGAS, n=12)
+## Evaluation (RAGAS, n=26, judge: llama3.1 via local Ollama)
 
-| Metric             | Score |
-|--------------------|-------|
-| Faithfulness       | X.XX  |
-| Answer Relevancy   | X.XX  |
-| Context Precision  | X.XX  |
-| Context Recall     | X.XX  |
+| Metric             | Score  |
+|--------------------|--------|
+| Faithfulness       | 0.4872 |
+| Answer Relevancy   | 0.3968 |
+| Context Precision  | n/a — see note below |
+| Context Recall     | n/a — see note below |
 ```
 
-Expand `test_set.json` toward 50 questions as more rulings get indexed — the 12 grounded pairs currently in it are tied to the two rulings actually indexed; adding untested questions against uncrawled content would make the eval numbers meaningless.
+**Note on these numbers**: this run used a free local 8B model (`llama3.1` via Ollama) as both the answer generator *and* the RAGAS judge, on a memory-constrained laptop — not GPT-4o. `context_precision`/`context_recall` never completed a clean pass locally: running the full generation + 4-metric judge pipeline concurrently pushed the machine into heavy memory pressure (embedding model + reranker + Qdrant client + a resident 4.9GB LLM all competing for RAM), which degraded response latency until judge calls started timing out. `faithfulness` and `answer_relevancy` completed with zero errors across all 26 questions, so those two are trustworthy as a *relative, same-model-family* baseline — not as an absolute quality bar. A real deployment would use `gpt-4o` (fast, hosted, no local memory contention) for both generation and judging; expect materially different absolute scores, and rerun context_precision/context_recall with that setup for real numbers on those two metrics.
+
+Expand `test_set.json` further as more rulings get indexed — every grounded pair in it is tied to a ruling actually indexed; adding untested questions against uncrawled content would make the eval numbers meaningless.
 
 ## Architecture
 

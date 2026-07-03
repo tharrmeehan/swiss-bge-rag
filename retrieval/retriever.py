@@ -60,4 +60,4 @@ def hybrid_search(
 
 
 def get_client() -> QdrantClient:
-    return QdrantClient(url=os.getenv("QDRANT_URL", "http://localhost:6333"))
+    return QdrantClient(url=os.getenv("QDRANT_URL", "http://localhost:6333"), api_key=os.getenv("QDRANT_API_KEY"))

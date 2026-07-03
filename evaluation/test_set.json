@@ -46,5 +46,61 @@
   {
     "question": "Welche Position vertrat das Bundesamt für Gesundheit als Beschwerdegegnerin in BGE 148 IV 1?",
     "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten."
+  },
+  {
+    "question": "Ist der Wahlakt eines kantonalen Parlaments zur Nichtwiederwahl eines Richters gemäss BGE 147 I 1 beim Bundesgericht anfechtbar?",
+    "ground_truth": "Ja, der Wahlakt ist ungeachtet seiner Rechtsnatur ein zulässiges Anfechtungsobjekt; er hat vorwiegend politischen Charakter im Sinne von Art. 86 Abs. 3 BGG und kann mangels Weiterzugsmöglichkeit im Kanton direkt beim Bundesgericht angefochten werden."
+  },
+  {
+    "question": "Qualifiziert die finanzmarktrechtliche Publikationsanordnung gemäss BGE 147 I 57 als strafrechtliche Anklage im Sinne von Art. 6 EMRK?",
+    "ground_truth": "Nein, eine auf Art. 34 FINMAG gestützte und angemessen zu befristende Publikation einer Unterlassungsanweisung erfüllt keines der 'Engel-Kriterien' und stellt daher keine strafrechtliche Anklage im Sinne von Art. 6 EMRK dar."
+  },
+  {
+    "question": "Ist die automatische Verbindung von Wegweisungs- und Fernhaltungsmassnahmen mit einer Strafdrohung nach Art. 292 StGB gemäss BGE 147 I 103 verhältnismässig?",
+    "ground_truth": "Nein, die automatische Verbindung ist weder erforderlich noch verhältnismässig im engeren Sinne."
+  },
+  {
+    "question": "Ist gemäss BGE 147 I 206 der Rückzug einer eidgenössischen Volksinitiative nach Aufhebung einer Abstimmung durch das Bundesgericht möglich?",
+    "ground_truth": "Ja, der Rückzug ist unter den Voraussetzungen von Art. 73 BPR auch nach der Aufhebung einer Abstimmung durch das Bundesgericht möglich."
+  },
+  {
+    "question": "Wie lange muss ein Arbeitsverhältnis gemäss BGE 147 II 1 gedauert haben, damit das Aufenthaltsrecht bei unfreiwilliger Arbeitslosigkeit nicht bereits nach sechs Monaten erlischt?",
+    "ground_truth": "Mindestens zwölf Monate; dauerte das Arbeitsverhältnis weniger als zwölf Monate, erlischt das Aufenthaltsrecht gemäss Art. 61a Abs. 1 AIG sechs Monate nach unfreiwilliger Beendigung des Arbeitsverhältnisses. Diese Regelung ist mit dem Freizügigkeitsabkommen vereinbar."
+  },
+  {
+    "question": "Greift der Beschwerdeausschluss nach Art. 83 lit. w BGG gemäss BGE 147 II 201 auch, wenn einzig die Höhe der Entschädigung streitig ist?",
+    "ground_truth": "Ja, der Ausschlussgrund greift auch, wenn einzig die Höhe der Entschädigung streitig ist."
+  },
+  {
+    "question": "Worauf muss bei der flächenmässigen Aufteilung eines selbständigen und dauernden Baurechts gemäss BGE 147 III 1 Rücksicht genommen werden?",
+    "ground_truth": "Auf die gesetzliche Mindestdauer der Baurechtsdienstbarkeit gemäss Art. 655 Abs. 2 Ziff. 2 und Abs. 3 ZGB."
+  },
+  {
+    "question": "Wurde im Fall gemäss BGE 147 III 107 eine konkludente Zustimmung der Subunternehmerin zur Schiedsklausel bejaht?",
+    "ground_truth": "Nein, eine konkludente Zustimmung durch Einmischung in den Vollzug des Vertrags wurde verneint."
+  },
+  {
+    "question": "Kann gemäss BGE 147 III 209 dem früheren eingetragenen Partner eines Elternteils ein Anspruch auf persönlichen Verkehr mit dem Kind eingeräumt werden?",
+    "ground_truth": "Ja, unter aussergewöhnlichen Umständen, insbesondere wenn das Kind im Rahmen eines gemeinsamen Elternplans der eingetragenen Partner gezeugt wurde und innerhalb ihrer Paarbeziehung aufwuchs, liegt es grundsätzlich im Kindeswohl, den persönlichen Verkehr mit der früheren Partnerin oder dem früheren Partner aufrechtzuerhalten."
+  },
+  {
+    "question": "Können gemäss BGE 147 IV 16 Beweise, die unter Verletzung des Datenschutzgesetzes erlangt wurden, als in strafbarer Weise erlangte Beweise qualifiziert werden?",
+    "ground_truth": "Ja, Beweise, die unter Verletzung des DSG oder des ZGB erlangt wurden, können als in strafbarer Weise erlangte Beweise qualifiziert werden."
+  },
+  {
+    "question": "Hat das Nachgericht gemäss BGE 147 IV 108 im Verfahren nach Art. 34 Abs. 3 StPO die Rechtmässigkeit früherer Verurteilungen zu prüfen?",
+    "ground_truth": "Nein, das Nachgericht hat weder die Rechtmässigkeit der früheren Verurteilungen noch die Angemessenheit der ausgesprochenen Strafen zu prüfen; Gegenstand ist ausschliesslich das Nachholen der unterlassenen Gesamtstrafenbildung durch Asperation der rechtskräftigen Strafen."
+  },
+  {
+    "question": "Gehört gemäss BGE 147 V 10 zur Regressforderung nach Art. 26 Abs. 4 BVG auch ein Schadenszins, und wie berechnet sich dessen Höhe?",
+    "ground_truth": "Ja, zur Regressforderung gehört ein Regress- resp. Schadenszins; dessen Höhe richtet sich nach dem BVG-Mindestzinssatz plus ein Prozent."
+  },
+  {
+    "question": "Was muss gemäss BGE 148 II 1 vor einer möglichen Rückstufung von der Niederlassungs- auf eine Aufenthaltsbewilligung erfolgen, wenn kein erhebliches aktuelles Integrationsdefizit vorliegt?",
+    "ground_truth": "Das Verhältnismässigkeitsprinzip gebietet, vor einer möglichen Rückstufung erst eine Verwarnung auszusprechen."
+  },
+  {
+    "question": "Welchen Beruf übte der Beschwerdeführer in BGE 147 II 1 vor seiner Anstellung bei der B. SA aus?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten."
   }
 ]
