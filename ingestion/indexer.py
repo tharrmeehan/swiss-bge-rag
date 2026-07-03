@@ -1,3 +1,4 @@
+import hashlib
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -34,6 +35,10 @@ def ensure_collection(client: QdrantClient) -> None:
             "sparse": models.SparseVectorParams(modifier=models.Modifier.IDF)
         },
     )
+    # app.py's sidebar filters range/match on these — Qdrant requires an explicit
+    # payload index before it will filter on a field, even for small collections.
+    client.create_payload_index(COLLECTION, field_name="year", field_schema=models.PayloadSchemaType.INTEGER)
+    client.create_payload_index(COLLECTION, field_name="division", field_schema=models.PayloadSchemaType.KEYWORD)
 
 
 def _embed_dense(texts: list[str]) -> list[list[float]]:
@@ -60,7 +65,9 @@ def index_chunks(chunks: list[Chunk], client: QdrantClient, batch_size: int = 32
     points = []
     for chunk, dv, sv in zip(chunks, dense_vecs, sparse_vecs):
         points.append(models.PointStruct(
-            id=abs(hash(chunk.id)) % (2**63),
+            # Python's hash() is randomized per-process (PYTHONHASHSEED), so it produced a
+            # different point ID on every reindex run instead of overwriting existing points.
+            id=int(hashlib.sha256(chunk.id.encode()).hexdigest()[:16], 16),
             vector={"dense": dv, "sparse": sv},
             payload={
                 "text": chunk.text,

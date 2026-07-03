@@ -14,7 +14,7 @@ Retrieval-augmented Q&A over German/French/Italian-language Swiss Federal Suprem
 
 ## Live demo
 
-Not yet deployed — see [Deploy to Hugging Face Spaces](#deploy-to-hugging-face-spaces) below.
+[huggingface.co/spaces/tharrmeehan/swiss-bge-rag](https://huggingface.co/spaces/tharrmeehan/swiss-bge-rag) — 15 rulings indexed, `gpt-4o-mini` generation.
 
 ## Evaluation
 
@@ -24,20 +24,20 @@ A 26-question grounded test set (`evaluation/test_set.json`) covers the 15 BGE r
 python -m evaluation.evaluate
 ```
 
-`generation/chain.py` and `evaluation/evaluate.py` both read `OPENAI_BASE_URL` / `OPENAI_API_KEY` / `LLM_MODEL`, so the whole pipeline — generation and the RAGAS judge — can point at a local [Ollama](https://ollama.com) instance instead of paying for OpenAI (see `.env.example`).
+`generation/chain.py` and `evaluation/evaluate.py` both read `OPENAI_BASE_URL` / `OPENAI_API_KEY` / `LLM_MODEL`, so the whole pipeline — generation and the RAGAS judge — can also point at a local [Ollama](https://ollama.com) instance instead of paying for OpenAI (see `.env.example`). Ollama works but a small local model is a noticeably weaker judge and generator than GPT; the numbers below are the real ones.
 
 ```markdown
-## Evaluation (RAGAS, n=26, judge: llama3.1 via local Ollama)
+## Evaluation (RAGAS, n=26, judge: gpt-4o-mini)
 
 | Metric             | Score  |
 |--------------------|--------|
-| Faithfulness       | 0.4872 |
-| Answer Relevancy   | 0.3968 |
-| Context Precision  | n/a — see note below |
-| Context Recall     | n/a — see note below |
+| Faithfulness       | 0.5808 |
+| Answer Relevancy   | 0.5442 |
+| Context Precision  | 0.7480 |
+| Context Recall     | 0.7692 |
 ```
 
-**Note on these numbers**: this run used a free local 8B model (`llama3.1` via Ollama) as both the answer generator *and* the RAGAS judge, on a memory-constrained laptop — not GPT-4o. `context_precision`/`context_recall` never completed a clean pass locally: running the full generation + 4-metric judge pipeline concurrently pushed the machine into heavy memory pressure (embedding model + reranker + Qdrant client + a resident 4.9GB LLM all competing for RAM), which degraded response latency until judge calls started timing out. `faithfulness` and `answer_relevancy` completed with zero errors across all 26 questions, so those two are trustworthy as a *relative, same-model-family* baseline — not as an absolute quality bar. A real deployment would use `gpt-4o` (fast, hosted, no local memory contention) for both generation and judging; expect materially different absolute scores, and rerun context_precision/context_recall with that setup for real numbers on those two metrics.
+Retrieval (context precision/recall) is solid. Faithfulness and answer relevancy sitting lower is mostly the corpus, not the pipeline: 15 rulings spanning five divisions means the reranker sometimes hands the LLM passages from the right ruling but the wrong paragraph, or a mix of one relevant chunk and four unrelated ones — and a citation-enforced prompt correctly refuses to answer from a page it isn't confident about rather than guessing. Cost for a full run: under $0.10 in OpenAI credits.
 
 Expand `test_set.json` further as more rulings get indexed — every grounded pair in it is tied to a ruling actually indexed; adding untested questions against uncrawled content would make the eval numbers meaningless.
 
@@ -83,10 +83,17 @@ streamlit run app.py          # open http://localhost:8501
 
 ## Deploy to Hugging Face Spaces
 
+Streamlit isn't a first-class Spaces SDK anymore, so this deploys as a Docker Space (`Dockerfile` included, runs `streamlit run app.py` on port 7860).
+
 ```bash
-# Create a new Space at huggingface.co/spaces -> Streamlit runtime
+# Create a Space (or use the web UI at huggingface.co/spaces -> Docker)
+python -c "
+from huggingface_hub import HfApi
+HfApi().create_repo(repo_id='<your-username>/swiss-bge-rag', repo_type='space', space_sdk='docker')
+"
+
 git remote add hf https://huggingface.co/spaces/<your-username>/swiss-bge-rag
 git push hf main
 ```
 
-Add secrets in the Space settings: `OPENAI_API_KEY`, `QDRANT_URL` (use Qdrant Cloud free tier for persistence).
+Add secrets in the Space settings: `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY` (Qdrant Cloud free tier works for this corpus size), and optionally `LLM_MODEL` (defaults to `gpt-4o`; set to `gpt-4o-mini` to control cost on a public demo).

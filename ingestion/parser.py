@@ -24,12 +24,11 @@ def _extract_division(case_number: str) -> str:
 
 
 def _extract_year(case_number: str) -> int:
-    # BGE volume number -> approximate year (volume 148 ≈ 2022)
-    # Volume 1 started in 1875; each volume is roughly one year
+    # "BGE 148 I 1" -> 148 (the BGE volume number, not a calendar year —
+    # app.py's "Jahrgang (BGE-Band)" filter operates on this volume number)
     parts = case_number.strip().split()
     try:
-        volume = int(parts[1])
-        return 1874 + volume
+        return int(parts[1])
     except (IndexError, ValueError):
         return 0
 
