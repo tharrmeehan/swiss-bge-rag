@@ -38,11 +38,18 @@ def fetch_ruling_links(listing_url: str) -> list[str]:
 
 
 def _case_number_from_html(html: str) -> str | None:
-    """Extract the case number (e.g. "BGE 148 I 1") from a ruling page's <title>."""
-    match = re.search(r"<title>\s*([\d]+ [IVX]+ \d+)\s*</title>", html)
+    """Extract the case number (e.g. "BGE 148 I 1") from a ruling page's <title>.
+
+    Pre-reform divisions (Ia/Ib) render as all-caps "IA"/"IB" in the <title>;
+    normalize back to the conventional "Ia"/"Ib" citation form.
+    """
+    match = re.search(r"<title>\s*(\d+) (I|II|III|IV|V|IA|IB) (\d+)\s*</title>", html)
     if not match:
         return None
-    return f"BGE {match.group(1)}"
+    volume, division, page = match.groups()
+    if division in ("IA", "IB"):
+        division = division[0] + division[1].lower()
+    return f"BGE {volume} {division} {page}"
 
 
 def fetch_ruling(url: str, case_number: str | None = None) -> Path:
@@ -76,4 +83,57 @@ def scrape_division(listing_url: str, max_rulings: int = 500) -> list[Path]:
         path = fetch_ruling(url)
         saved.append(path)
         print(f"[{i+1}/{len(links)}] {path.name}")
+    return saved
+
+
+# search.bger.ch serves a per-volume/division index of every leading decision:
+#   index_atf.php?year=<volume>&volume=<I|II|III|IV|V>&lang=de&zoom=&system=clir
+# "year" is actually the BGE volume number, not a calendar year. Divisions Ia/Ib
+# (used pre-reform, e.g. "101 Ia 33") are grouped under volume=I in this index.
+VOLUME_INDEX_URL = (
+    "https://search.bger.ch/ext/eurospider/live/de/php/clir/http/index_atf.php"
+    "?year={volume}&volume={division}&lang=de&zoom=&system=clir"
+)
+DIVISIONS = ("I", "II", "III", "IV", "V")
+
+
+def _sample(items: list[str], cap: int) -> list[str]:
+    """Evenly spaced sample of at most `cap` items, to spread across a volume's pages."""
+    if len(items) <= cap:
+        return items
+    step = len(items) / cap
+    return [items[int(i * step)] for i in range(cap)]
+
+
+def scrape_volume_range(
+    vol_min: int,
+    vol_max: int,
+    cap_per_division: int = 8,
+    force_include: list[str] | None = None,
+    divisions: tuple[str, ...] = DIVISIONS,
+) -> list[Path]:
+    """Sample rulings across BGE volumes vol_min..vol_max (inclusive).
+
+    Takes up to `cap_per_division` evenly-spaced rulings per division per volume
+    (keeps a full range scrape within a modest Qdrant free-tier footprint), plus
+    always fetches any specific case numbers in `force_include`
+    (e.g. ["139 I 218", "101 Ia 33"]) regardless of sampling.
+    """
+    saved = []
+    for vol in range(vol_min, vol_max + 1):
+        for division in divisions:
+            listing = VOLUME_INDEX_URL.format(volume=vol, division=division)
+            links = fetch_ruling_links(listing)
+            for url in _sample(links, cap_per_division):
+                path = fetch_ruling(url)
+                saved.append(path)
+                print(f"[{len(saved)}] {path.name}")
+
+    for case_number in force_include or []:
+        vol_str, division, page = case_number.split()
+        url = ruling_url(int(vol_str), division, int(page))
+        path = fetch_ruling(url, case_number=f"BGE {case_number}")
+        saved.append(path)
+        print(f"[{len(saved)}] {path.name} (forced)")
+
     return saved

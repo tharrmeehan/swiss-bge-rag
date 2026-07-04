@@ -1,0 +1,37 @@
+[
+  {
+    "question": "Verletzt ein kommunales Verbot der Gesichtsverhüllung im öffentlichen Raum (sog. \"Burka-Verbot\") laut BGE 139 I 218 den Verhältnismässigkeitsgrundsatz gemäss Bundesverfassung?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten.",
+    "note": "BGE 139 I 218 is not about a face-veiling ban — it concerns a welfare-recipient job-placement dispute (Sozialhilfe/Testarbeitsplatz). Citation does not match the claimed topic."
+  },
+  {
+    "question": "Ist ein pauschales Verbot der Abgabe religiöser Schriften (z.B. Koran oder Bibel) auf öffentlichem Grund durch einen Gemeinderat gemäss BGE 143 I 1 mit der Meinungs- und Religionsfreiheit vereinbar?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten.",
+    "note": "BGE 143 I 1 is a procedural ruling on which BGer division has jurisdiction over challenges to cantonal enactments — unrelated to religious-literature distribution."
+  },
+  {
+    "question": "Welche spezifischen Kriterien gelten gemäss BGE 141 IV 305 im Rahmen von \"Via Sicura\" für die Beurteilung des subjektiven Tatbestands (Vorsatz) bei einem Raserdelikt?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten.",
+    "note": "BGE 141 IV 305 concerns illegal demolition of a protected house and confiscation limitation periods — not speeding/Via Sicura."
+  },
+  {
+    "question": "Welche Beweise muss ein Vermieter gemäss BGE 140 III 591 erbringen, um eine Mietzinserhöhung mit den \"orts- und quartierüblichen Mietzinsen\" zu begründen?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten.",
+    "note": "BGE 140 III 591 is about termination for payment default (Art. 257d OR) — not comparable-rent evidence under Art. 269a OR."
+  },
+  {
+    "question": "Welche Kriterien definiert BGE 122 I 236 für die Beurteilung von \"gleichem Lohn für gleichwertige Arbeit\" im öffentlichen Sektor?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten.",
+    "note": "BGE 122 I 236 concerns language-of-schooling rights (Sprachenfreiheit), not equal-pay doctrine."
+  },
+  {
+    "question": "Kann einem langjährig in der Schweiz wohnhaften Ausländer die Niederlassungsbewilligung (Ausweis C) gemäss BGE 144 I 126 allein wegen des dauerhaften Bezugs von Sozialhilfe widerrufen werden?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten.",
+    "note": "BGE 144 I 126 concerns telecom metadata retention (Vorratsdatenspeicherung), not residence-permit revocation."
+  },
+  {
+    "question": "Welcher fundamentale Verfahrensgrundsatz wurde in BGE 101 Ia 33 bezüglich der Natur des Anspruchs auf rechtliches Gehör verankert?",
+    "ground_truth": "Diese Information ist in den abgerufenen Entscheiden nicht enthalten.",
+    "note": "BGE 101 Ia 33 concerns a ban on gambling machines (Geldspielautomaten), not the right to be heard."
+  }
+]
