@@ -4,6 +4,10 @@ Retrieval-augmented Q&A over Swiss Federal Supreme Court rulings (BGE — *Bunde
 
 Built to explore a specific failure mode of naive RAG: legal Q&A is worthless if the system confidently cites the wrong case or fabricates a holding. Every generation call is constrained to answer only from retrieved passages and to cite the source case number, with a hard-coded refusal string when the retrieved context doesn't support an answer.
 
+## Datenschutz und Nutzungshinweis
+
+Frage und abgerufene Textpassagen werden an den konfigurierten Modellanbieter zur Antwortgenerierung übermittelt. Bei OpenAI kann dies ein externer Dienst sein; mit einem lokal konfigurierten Modell bleiben die Modellanfragen lokal. Prüfen Sie die Konfiguration, bevor Sie den Dienst verwenden, und geben Sie keine vertraulichen Daten ein. Die Antworten dienen nur der Information und sind keine Rechtsberatung.
+
 ## Live demo
 
 [huggingface.co/spaces/tharrmeehan/swiss-bge-rag](https://huggingface.co/spaces/tharrmeehan/swiss-bge-rag) — small demo corpus, `gpt-4o-mini` generation.
